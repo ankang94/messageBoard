@@ -1,0 +1,24 @@
+# 端口配置
+server:
+  port: 7001
+
+# mysql
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.17.135:3306/dev?characterEncoding=utf8&useSSL=true
+    username: an
+    password: kang
+  jackson:
+    # 返回结果去掉空字段
+    default-property-inclusion: non_null
+
+# mybatis配置
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
+
+

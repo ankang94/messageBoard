@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.msgboard.infrastructure.persistence.mybatis.mapper.MessageMapper">
+    <resultMap id="BaseResultMap"
+               extends="com.ankang.msgboard.infrastructure.persistence.mybatis.mapper.auto.MessageAutoMapper.BaseResultMap"
+               type="com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.MessageDO"/>
+
+    <resultMap id="articleMessage" type="com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.result.ArticleMessageDO">
+        <result column="id" property="id"/>
+        <result column="name" property="visitor"/>
+        <result column="message" property="message"/>
+        <result column="mb_date" property="time"/>
+        <result column="quote_name" property="quoteName"/>
+        <result column="quote_message" property="quoteMessage"/>
+    </resultMap>
+
+    <select id="fetchMsgList" resultMap="articleMessage">
+        SELECT
+            m.id,
+            v.name,
+            m.message,
+            m.mb_date,
+            mm.name AS quote_name,
+            mm.message AS quote_message
+        FROM
+            mb_visitor v,
+            mb_message m
+        LEFT JOIN (
+            SELECT
+                m2.id,
+                v2.name,
+                m2.message
+            FROM
+                mb_visitor v2,
+                mb_message m2
+            WHERE
+                m2.visitor = v2.id
+        ) mm ON m.parent = mm.id
+        WHERE
+            m.visitor = v.id
+        AND m.article = #{articleId}
+    </select>
+
+    <select id="countMsg" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            mb_visitor v,
+            mb_message m
+        LEFT JOIN (
+            SELECT
+                m2.id,
+                v2.name,
+                m2.message
+            FROM
+                mb_visitor v2,
+                mb_message m2
+            WHERE
+                m2.visitor = v2.id
+        ) mm ON m.parent = mm.id
+        WHERE
+            m.visitor = v.id
+        AND m.article = #{articleId}
+    </select>
+
+</mapper>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.msgboard.infrastructure.persistence.mybatis.mapper.VisitorMapper">
+    <resultMap id="BaseResultMap"
+               extends="com.ankang.msgboard.infrastructure.persistence.mybatis.mapper.auto.VisitorAutoMapper.BaseResultMap"
+               type="com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.VisitorDO"/>
+</mapper>
