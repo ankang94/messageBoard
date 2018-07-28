@@ -5,6 +5,7 @@ import com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.Message
 import com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.MessageParam;
 import com.ankang.msgboard.infrastructure.persistence.mybatis.dataobject.result.ArticleMessageDO;
 import com.ankang.msgboard.infrastructure.persistence.mybatis.mapper.MessageMapper;
+import com.ankang.msgboard.infrastructure.utils.FormatTools;
 import com.ankang.msgboard.interfaces.controller.dto.MsgBoardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class MessageDOTranslator {
                     dto.setId(x.getId());
                     dto.setName(x.getVisitor());
                     dto.setMessage(x.getMessage());
-                    dto.setTime(x.getTime());
+                    dto.setTime(FormatTools.format(x.getTime()));
                     dto.setQuoteName(x.getQuoteName());
                     dto.setQuoteMessage(x.getQuoteMessage());
                     return dto;

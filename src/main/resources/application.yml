@@ -12,6 +12,27 @@ spring:
   jackson:
     # 返回结果去掉空字段
     default-property-inclusion: non_null
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+  # redis配置
+  redis:
+    host: 192.168.17.135
+    port: 6379
+    password: kang
+    # 连接超时时间
+    timeout: 100s
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 1s
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
 
 # mybatis配置
 mybatis:
@@ -20,5 +41,8 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   support-methods-arguments: true
+
+
+
 
 

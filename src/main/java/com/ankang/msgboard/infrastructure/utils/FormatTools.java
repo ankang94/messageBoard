@@ -10,7 +10,7 @@ public class FormatTools {
 
     public static String format(Instant date) {
         DateTimeFormatter formatter =
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                         .withLocale(Locale.CHINA)
                         .withZone(ZoneId.systemDefault());
         return formatter.format(date);

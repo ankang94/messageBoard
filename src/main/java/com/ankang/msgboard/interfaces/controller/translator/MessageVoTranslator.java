@@ -16,7 +16,7 @@ public class MessageVoTranslator {
             vo.setId(x.getId());
             vo.setName(x.getName());
             vo.setMessage(x.getMessage());
-            vo.setTime(FormatTools.format(x.getTime()));
+            vo.setTime(x.getTime());
             if (StringUtils.isNotEmpty(x.getQuoteName())) {
                 MessageQuoteVO quote = new MessageQuoteVO();
                 quote.setName(x.getQuoteName());

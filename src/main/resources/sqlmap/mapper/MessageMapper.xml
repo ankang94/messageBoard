@@ -39,6 +39,7 @@
         WHERE
             m.visitor = v.id
         AND m.article = #{articleId}
+        ORDER BY m.mb_date DESC
     </select>
 
     <select id="countMsg" resultType="java.lang.Long">
@@ -61,6 +62,7 @@
         WHERE
             m.visitor = v.id
         AND m.article = #{articleId}
+        ORDER BY m.mb_date DESC
     </select>
 
 </mapper>

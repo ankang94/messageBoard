@@ -7,7 +7,7 @@ public class MsgBoardDTO implements Serializable {
     private String id;
     private String name;
     private String message;
-    private Instant time;
+    private String time;
     private String quoteName;
     private String quoteMessage;
 
@@ -35,11 +35,11 @@ public class MsgBoardDTO implements Serializable {
         this.message = message;
     }
 
-    public Instant getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
