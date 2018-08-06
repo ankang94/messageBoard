@@ -8,12 +8,17 @@ import com.ankang.msgboard.interfaces.controller.config.RestResponse;
 import com.ankang.msgboard.interfaces.controller.dto.MsgBoardDTO;
 import com.ankang.msgboard.interfaces.controller.dto.VisitorDTO;
 import com.ankang.msgboard.interfaces.controller.translator.MessageVoTranslator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -25,6 +30,11 @@ public class MsgController {
 
     @Autowired
     private MessageAppService messageAppService;
+
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    private static final Logger logger = LoggerFactory.getLogger(MsgController.class);
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public RestResponse listMsg(@RequestParam("articleId") Integer articleId,
@@ -53,6 +63,18 @@ public class MsgController {
         visitorDTO.setMessage(message);
         visitorDTO.setQuote(quote);
         visitorAppService.addMsg(visitorDTO);
+        return RestResponse.empty();
+    }
+
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
+    public RestResponse refresh(@RequestParam("articles") String articleIds) {
+        Arrays.stream(articleIds.split(",")).forEach(x -> {
+            try {
+                redisTemplate.delete(redisTemplate.keys("MB_ARTICLE_" + Integer.valueOf(x) + "_*"));
+            } catch (NumberFormatException e) {
+                logger.debug(e.getMessage());
+            }
+        });
         return RestResponse.empty();
     }
 }
